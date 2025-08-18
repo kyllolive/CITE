@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # CodeIgniter 4 Application
+  ci4-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ci4_app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html/app
+      - ./public:/var/www/html/public
+      - ./writable:/var/www/html/writable
+      - ./tests:/var/www/html/tests
+      - ./.env:/var/www/html/.env
+    environment:
+      - CI_ENVIRONMENT=development
+      - database.default.hostname=mysql
+      - database.default.database=ci4_db
+      - database.default.username=ci4_user
+      - database.default.password=ci4_password
+      - database.default.DBDriver=MySQLi
+    depends_on:
+      - mysql
+    networks:
+      - learning_network
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_server
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: ci4_db
+      MYSQL_USER: ci4_user
+      MYSQL_PASSWORD: ci4_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - learning_network
+
+  # Moodle LMS
+  moodle:
+    image: bitnami/moodle:latest
+    container_name: moodle_lms
+    ports:
+      - "8081:8080"
+      - "8443:8443"
+    environment:
+      - MOODLE_DATABASE_HOST=moodle-db
+      - MOODLE_DATABASE_PORT_NUMBER=3306
+      - MOODLE_DATABASE_USER=moodle
+      - MOODLE_DATABASE_PASSWORD=moodle_password
+      - MOODLE_DATABASE_NAME=moodle_db
+      - MOODLE_USERNAME=admin
+      - MOODLE_PASSWORD=Admin@123
+      - MOODLE_EMAIL=admin@example.com
+      - MOODLE_SITE_NAME=Development Moodle
+      - MOODLE_SKIP_BOOTSTRAP=no
+      - PHP_MEMORY_LIMIT=256M
+      - PHP_MAX_EXECUTION_TIME=300
+    volumes:
+      - moodle_data:/bitnami/moodle
+      - moodledata_data:/bitnami/moodledata
+    depends_on:
+      - moodle-db
+    networks:
+      - learning_network
+
+  # Separate MySQL for Moodle
+  moodle-db:
+    image: mysql:8.0
+    container_name: moodle_mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: moodle_root
+      MYSQL_DATABASE: moodle_db
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: moodle_password
+    volumes:
+      - moodle_mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - learning_network
+
+  # phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8082:80"
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+    depends_on:
+      - mysql
+      - moodle-db
+    networks:
+      - learning_network
+
+volumes:
+  mysql_data:
+    driver: local
+  moodle_mysql_data:
+    driver: local
+  moodle_data:
+    driver: local
+  moodledata_data:
+    driver: local
+
+networks:
+  learning_network:
+    driver: bridge
