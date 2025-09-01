@@ -64,8 +64,8 @@ Quick Start:
 
   # First time setup
   cp env .env
-  docker-compose up -d
-  docker-compose exec ci4-app composer install
+  docker compose up -d
+  docker compose exec ci4-app composer install
 
   # Access your services:
   # - CodeIgniter 4: http://localhost:8080
