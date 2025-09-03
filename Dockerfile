@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libicu-dev \
     libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl zip \
+    && docker-php-ext-install pdo_mysql mysqli mbstring exif pcntl bcmath gd intl zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache modules
@@ -46,8 +46,26 @@ RUN echo '<VirtualHost *:80>\n\
 # Install Composer dependencies
 RUN composer install --no-interaction --optimize-autoloader
 
-# Copy env file for development
-RUN if [ -f "env" ] && [ ! -f ".env" ]; then cp env .env; fi
+# Setup environment file with proper database configuration for Docker
+RUN echo "CI_ENVIRONMENT = development\n\
+app.baseURL = 'http://localhost:8080'\n\
+\n\
+database.default.hostname = mysql\n\
+database.default.database = ci4_db\n\
+database.default.username = ci4_user\n\
+database.default.password = ci4_password\n\
+database.default.DBDriver = MySQLi\n\
+database.default.DBPrefix =\n\
+database.default.port = 3306" > .env
+
+# Make spark executable
+RUN chmod +x spark
+
+# Set proper permissions for Apache
+RUN chown -R www-data:www-data /var/www/html \
+    && find /var/www/html -type d -exec chmod 755 {} \; \
+    && find /var/www/html -type f -exec chmod 644 {} \; \
+    && chmod -R 775 /var/www/html/writable
 
 # Expose port 80
 EXPOSE 80

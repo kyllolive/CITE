@@ -1,0 +1,211 @@
+DEBUG - 2025-09-03 08:32:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 08:32:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-09-03 08:32:22 --> CodeIgniter\Exceptions\CriticalError: The required PHP extension "mysqli" is not loaded. Install and enable it to use "MySQLi" driver.
+[Method: GET, Route: auth/login]
+in SYSTEMPATH/Database/Database.php on line 182.
+ 1 SYSTEMPATH/Database/Database.php(59): CodeIgniter\Database\Database->checkDbExtension('MySQLi')
+ 2 SYSTEMPATH/Database/Config.php(82): CodeIgniter\Database\Database->load([...], 'default')
+ 3 SYSTEMPATH/Model.php(155): CodeIgniter\Database\Config::connect('default')
+ 4 APPPATH/Controllers/Auth/LoginController.php(14): CodeIgniter\Model->__construct()
+ 5 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Auth\LoginController->__construct()
+ 6 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 08:37:37 --> CodeIgniter\Exceptions\CriticalError: The required PHP extension "mysqli" is not loaded. Install and enable it to use "MySQLi" driver.
+[Method: CLI, Route: migrate]
+in SYSTEMPATH/Database/Database.php on line 182.
+ 1 SYSTEMPATH/Database/Database.php(59): CodeIgniter\Database\Database->checkDbExtension('MySQLi')
+ 2 SYSTEMPATH/Database/Config.php(82): CodeIgniter\Database\Database->load([...], 'default')
+ 3 SYSTEMPATH/Common.php(361): CodeIgniter\Database\Config::connect('default', true)
+ 4 SYSTEMPATH/Database/MigrationRunner.php(145): db_connect(null)
+ 5 SYSTEMPATH/Config/Services.php(421): CodeIgniter\Database\MigrationRunner->__construct(Object(Config\Migrations), null)
+ 6 SYSTEMPATH/Config/BaseService.php(312): CodeIgniter\Config\Services::migrations(Object(Config\Migrations), null, false)
+ 7 SYSTEMPATH/Config/BaseService.php(251): CodeIgniter\Config\BaseService::__callStatic('migrations', [...])
+ 8 SYSTEMPATH/Config/Services.php(416): CodeIgniter\Config\BaseService::getSharedInstance('migrations', null, null)
+ 9 SYSTEMPATH/Config/BaseService.php(321): CodeIgniter\Config\Services::migrations()
+10 SYSTEMPATH/Config/BaseService.php(202): CodeIgniter\Config\BaseService::__callStatic('migrations', [])
+11 SYSTEMPATH/Common.php(995): CodeIgniter\Config\BaseService::get('migrations')
+12 SYSTEMPATH/Commands/Database/Migrate.php(70): service('migrations')
+13 SYSTEMPATH/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+14 SYSTEMPATH/CLI/Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+15 SYSTEMPATH/Boot.php(388): CodeIgniter\CLI\Console->run()
+16 SYSTEMPATH/Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+17 ROOTPATH/spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2025-09-03 08:44:27 --> mysqli_sql_exception: Duplicate key name 'email' in /var/www/html/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/html/system/Database/MySQLi/Connection.php(327): mysqli->query('CREATE TABLE `u...', 0)
+#1 /var/www/html/system/Database/BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `u...')
+#2 /var/www/html/system/Database/BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `u...')
+#3 /var/www/html/system/Database/Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `u...')
+#4 /var/www/html/app/Database/Migrations/2025-01-03-000001_CreateUsersTable.php(68): CodeIgniter\Database\Forge->createTable('users')
+#5 /var/www/html/system/Database/MigrationRunner.php(876): App\Database\Migrations\CreateUsersTable->up()
+#6 /var/www/html/system/Database/MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 /var/www/html/system/Commands/Database/Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 /var/www/html/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 /var/www/html/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 /var/www/html/system/Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 /var/www/html/system/Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 /var/www/html/spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+DEBUG - 2025-09-03 08:46:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 08:46:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 08:47:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 08:47:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 08:51:08 --> CSRF token verified.
+DEBUG - 2025-09-03 08:51:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-09-03 08:51:08 --> Error connecting to the database: mysqli_sql_exception: No such file or directory in /var/www/html/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /var/www/html/system/Database/MySQLi/Connection.php(201): mysqli->real_connect('localhost', '', Object(SensitiveParameterValue), '', 3306, '', 0)
+#1 /var/www/html/system/Database/BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /var/www/html/system/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 /var/www/html/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /var/www/html/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 /var/www/html/system/BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 /var/www/html/app/Models/UserModel.php(55): CodeIgniter\BaseModel->first()
+#7 /var/www/html/app/Models/UserModel.php(60): App\Models\UserModel->findByEmail('admin@cite.loca...')
+#8 /var/www/html/app/Controllers/Auth/LoginController.php(43): App\Models\UserModel->verifyPassword('admin@cite.loca...', 'Admin@123')
+#9 /var/www/html/system/CodeIgniter.php(933): App\Controllers\Auth\LoginController->authenticate()
+#10 /var/www/html/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth\LoginController))
+#11 /var/www/html/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 /var/www/html/system/Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 /var/www/html/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 /var/www/html/public/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No such file or directory in /var/www/html/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /var/www/html/system/Database/BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /var/www/html/system/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 /var/www/html/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /var/www/html/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 /var/www/html/system/BaseModel.php(715): CodeIgniter\Model->doFirst()
+#5 /var/www/html/app/Models/UserModel.php(55): CodeIgniter\BaseModel->first()
+#6 /var/www/html/app/Models/UserModel.php(60): App\Models\UserModel->findByEmail('admin@cite.loca...')
+#7 /var/www/html/app/Controllers/Auth/LoginController.php(43): App\Models\UserModel->verifyPassword('admin@cite.loca...', 'Admin@123')
+#8 /var/www/html/system/CodeIgniter.php(933): App\Controllers\Auth\LoginController->authenticate()
+#9 /var/www/html/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth\LoginController))
+#10 /var/www/html/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /var/www/html/system/Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 /var/www/html/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 /var/www/html/public/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-09-03 08:51:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+[Method: POST, Route: auth/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 465.
+ 1 SYSTEMPATH/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/UserModel.php(55): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Models/UserModel.php(60): App\Models\UserModel->findByEmail('admin@cite.local')
+ 7 APPPATH/Controllers/Auth/LoginController.php(43): App\Models\UserModel->verifyPassword('admin@cite.local', 'Admin@123')
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Auth\LoginController->authenticate()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth\LoginController))
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-09-03 08:52:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 08:53:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 08:53:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 08:53:30 --> CSRF token verified.
+DEBUG - 2025-09-03 08:53:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-09-03 08:53:30 --> Error connecting to the database: mysqli_sql_exception: No such file or directory in /var/www/html/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /var/www/html/system/Database/MySQLi/Connection.php(201): mysqli->real_connect('localhost', '', Object(SensitiveParameterValue), '', 3306, '', 0)
+#1 /var/www/html/system/Database/BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /var/www/html/system/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 /var/www/html/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /var/www/html/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 /var/www/html/system/BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 /var/www/html/app/Models/UserModel.php(55): CodeIgniter\BaseModel->first()
+#7 /var/www/html/app/Models/UserModel.php(60): App\Models\UserModel->findByEmail('instructor@cite...')
+#8 /var/www/html/app/Controllers/Auth/LoginController.php(43): App\Models\UserModel->verifyPassword('instructor@cite...', 'Instructor@123')
+#9 /var/www/html/system/CodeIgniter.php(933): App\Controllers\Auth\LoginController->authenticate()
+#10 /var/www/html/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth\LoginController))
+#11 /var/www/html/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 /var/www/html/system/Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 /var/www/html/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 /var/www/html/public/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No such file or directory in /var/www/html/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /var/www/html/system/Database/BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /var/www/html/system/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 /var/www/html/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /var/www/html/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 /var/www/html/system/BaseModel.php(715): CodeIgniter\Model->doFirst()
+#5 /var/www/html/app/Models/UserModel.php(55): CodeIgniter\BaseModel->first()
+#6 /var/www/html/app/Models/UserModel.php(60): App\Models\UserModel->findByEmail('instructor@cite...')
+#7 /var/www/html/app/Controllers/Auth/LoginController.php(43): App\Models\UserModel->verifyPassword('instructor@cite...', 'Instructor@123')
+#8 /var/www/html/system/CodeIgniter.php(933): App\Controllers\Auth\LoginController->authenticate()
+#9 /var/www/html/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth\LoginController))
+#10 /var/www/html/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /var/www/html/system/Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 /var/www/html/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 /var/www/html/public/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-09-03 08:53:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+[Method: POST, Route: auth/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 465.
+ 1 SYSTEMPATH/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/UserModel.php(55): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Models/UserModel.php(60): App\Models\UserModel->findByEmail('instructor@cite.local')
+ 7 APPPATH/Controllers/Auth/LoginController.php(43): App\Models\UserModel->verifyPassword('instructor@cite.local', 'Instructor@123')
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Auth\LoginController->authenticate()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth\LoginController))
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-09-03 09:03:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:03:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 09:05:33 --> CSRF token verified.
+DEBUG - 2025-09-03 09:05:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:05:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:06:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:07:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:07:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:07:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:07:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:07:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:07:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:07:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 09:09:07 --> CSRF token verified.
+DEBUG - 2025-09-03 09:09:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 09:09:20 --> CSRF token verified.
+DEBUG - 2025-09-03 09:09:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 09:09:35 --> CSRF token verified.
+DEBUG - 2025-09-03 09:09:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 09:09:55 --> CSRF token verified.
+DEBUG - 2025-09-03 09:09:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:09:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:10:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:10:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-09-03 09:13:27 --> CSRF token verified.
+DEBUG - 2025-09-03 09:13:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:13:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:18:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-03 09:18:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   # CodeIgniter 4 Application
@@ -14,7 +14,7 @@ services:
       - ./public:/var/www/html/public
       - ./writable:/var/www/html/writable
       - ./tests:/var/www/html/tests
-      - ./.env:/var/www/html/.env
+      # Note: .env is created in Dockerfile, not mounted from host
     environment:
       - CI_ENVIRONMENT=development
       - database.default.hostname=mysql

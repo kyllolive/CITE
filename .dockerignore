@@ -50,4 +50,3 @@ LICENSE
 phpunit.xml.dist
 phpstan.neon.dist
 .php-cs-fixer.dist.php
-spark
