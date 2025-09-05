@@ -48,6 +48,14 @@
             <button type="submit" class="btn btn-primary">Sign In</button>
         </div>
         
+        <div class="mt-3">
+            <div class="d-grid gap-2">
+                <a href="/auth/moodle" class="btn btn-outline-success">
+                    <i class="bi bi-mortarboard"></i> Login with Moodle
+                </a>
+            </div>
+        </div>
+        
         <div class="mt-3 text-center">
             <p class="mb-1">
                 <a href="/auth/forgot-password" class="text-decoration-none">Forgot your password?</a>

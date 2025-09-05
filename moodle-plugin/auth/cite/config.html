@@ -1,0 +1,75 @@
+<table cellspacing="0" cellpadding="5" border="0">
+    <tr>
+        <td colspan="3">
+            <h2 class="main"><?php print_string('auth_cite_settings', 'auth_cite'); ?></h2>
+        </td>
+    </tr>
+    
+    <tr>
+        <td align="right">
+            <label for="cite_url"><?php print_string('auth_cite_url', 'auth_cite'); ?>:</label>
+        </td>
+        <td>
+            <input name="cite_url" id="cite_url" type="text" size="40" value="<?php echo $config->cite_url ?? '' ?>" />
+            <?php if (isset($err['cite_url'])) { echo $OUTPUT->error_text($err['cite_url']); } ?>
+        </td>
+        <td>
+            <p><?php print_string('auth_cite_url_description', 'auth_cite'); ?></p>
+        </td>
+    </tr>
+    
+    <tr>
+        <td align="right">
+            <label for="sso_secret"><?php print_string('auth_cite_sso_secret', 'auth_cite'); ?>:</label>
+        </td>
+        <td>
+            <input name="sso_secret" id="sso_secret" type="password" size="40" value="<?php echo $config->sso_secret ?? '' ?>" />
+            <?php if (isset($err['sso_secret'])) { echo $OUTPUT->error_text($err['sso_secret']); } ?>
+        </td>
+        <td>
+            <p><?php print_string('auth_cite_sso_secret_description', 'auth_cite'); ?></p>
+        </td>
+    </tr>
+    
+    <tr>
+        <td align="right">
+            <label for="auto_create_users"><?php print_string('auth_cite_auto_create_users', 'auth_cite'); ?>:</label>
+        </td>
+        <td>
+            <input name="auto_create_users" id="auto_create_users" type="checkbox" value="1" <?php echo !empty($config->auto_create_users) ? 'checked="checked"' : '' ?> />
+        </td>
+        <td>
+            <p><?php print_string('auth_cite_auto_create_users_description', 'auth_cite'); ?></p>
+        </td>
+    </tr>
+    
+    <tr>
+        <td align="right">
+            <label for="auto_update_users"><?php print_string('auth_cite_auto_update_users', 'auth_cite'); ?>:</label>
+        </td>
+        <td>
+            <input name="auto_update_users" id="auto_update_users" type="checkbox" value="1" <?php echo !empty($config->auto_update_users) ? 'checked="checked"' : '' ?> />
+        </td>
+        <td>
+            <p><?php print_string('auth_cite_auto_update_users_description', 'auth_cite'); ?></p>
+        </td>
+    </tr>
+    
+    <tr>
+        <td colspan="3">
+            <h3><?php print_string('auth_cite_instructions', 'auth_cite'); ?></h3>
+            <p><?php print_string('auth_cite_instructions_description', 'auth_cite'); ?></p>
+            
+            <h4><?php print_string('auth_cite_setup_steps', 'auth_cite'); ?></h4>
+            <ol>
+                <li><?php print_string('auth_cite_setup_step1', 'auth_cite'); ?></li>
+                <li><?php print_string('auth_cite_setup_step2', 'auth_cite'); ?></li>
+                <li><?php print_string('auth_cite_setup_step3', 'auth_cite'); ?></li>
+                <li><?php print_string('auth_cite_setup_step4', 'auth_cite'); ?></li>
+            </ol>
+            
+            <h4><?php print_string('auth_cite_sso_url', 'auth_cite'); ?></h4>
+            <p><code><?php echo $CFG->wwwroot; ?>/auth/cite/login.php</code></p>
+        </td>
+    </tr>
+</table>

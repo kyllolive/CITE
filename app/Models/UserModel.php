@@ -14,6 +14,9 @@ class UserModel extends BaseModel
         'password',
         'role',
         'moodle_id',
+        'moodle_token',
+        'moodle_username',
+        'last_moodle_sync',
         'is_active',
         'email_verified_at',
         'remember_token'

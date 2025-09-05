@@ -56,7 +56,12 @@ database.default.username = ci4_user\n\
 database.default.password = ci4_password\n\
 database.default.DBDriver = MySQLi\n\
 database.default.DBPrefix =\n\
-database.default.port = 3306" > .env
+database.default.port = 3306\n\
+\n\
+# Moodle Integration\n\
+MOODLE_URL = http://moodle:8081\n\
+MOODLE_TOKEN = your_token_here\n\
+MOODLE_SYNC_ENABLED = false" > .env
 
 # Make spark executable
 RUN chmod +x spark

@@ -113,6 +113,20 @@ class CourseModel extends BaseModel
         ])->countAllResults();
     }
     
+    public function getStudentCourses($studentId)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('courses');
+        
+        return $builder->select('courses.*, enrollments.enrollment_date, enrollments.status as enrollment_status')
+                       ->join('enrollments', 'enrollments.course_id = courses.id')
+                       ->where('enrollments.user_id', $studentId)
+                       ->where('enrollments.status', 'active')
+                       ->where('courses.status', 'active')
+                       ->get()
+                       ->getResultArray();
+    }
+    
     public function syncWithMoodle($courseId)
     {
         $moodleApi = new \App\Libraries\MoodleApi();

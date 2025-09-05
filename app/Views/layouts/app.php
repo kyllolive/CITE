@@ -19,11 +19,45 @@
                 <ul class="navbar-nav me-auto">
                     <?php if (session()->get('is_logged_in')): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                            <?php if (session()->get('role') === 'admin'): ?>
+                                <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+                            <?php elseif (session()->get('role') === 'instructor'): ?>
+                                <a class="nav-link" href="/instructor/dashboard">Dashboard</a>
+                            <?php elseif (session()->get('role') === 'student'): ?>
+                                <a class="nav-link" href="/student/dashboard">Dashboard</a>
+                            <?php else: ?>
+                                <a class="nav-link" href="/dashboard">Dashboard</a>
+                            <?php endif; ?>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/courses">Courses</a>
                         </li>
+                        <?php if (session()->get('role') === 'admin'): ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                                    <i class="bi bi-gear"></i> Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/admin/users">Manage Users</a></li>
+                                    <li><a class="dropdown-item" href="/admin/courses">Manage Courses</a></li>
+                                    <li><a class="dropdown-item" href="/admin/badges">Manage Badges</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a></li>
+                                </ul>
+                            </li>
+                        <?php elseif (session()->get('role') === 'instructor'): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/instructor/badges">
+                                    <i class="bi bi-award"></i> Badges
+                                </a>
+                            </li>
+                        <?php elseif (session()->get('role') === 'student'): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/student/badges">
+                                    <i class="bi bi-award"></i> My Badges
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav ms-auto">

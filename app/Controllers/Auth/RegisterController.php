@@ -4,14 +4,17 @@ namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Libraries\MoodleAuth;
 
 class RegisterController extends BaseController
 {
     protected $userModel;
+    protected $moodleAuth;
     
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->moodleAuth = new MoodleAuth();
     }
     
     public function index()
@@ -47,13 +50,37 @@ class RegisterController extends BaseController
                 ->with('errors', $this->validator->getErrors());
         }
         
+        $plainPassword = $this->request->getPost('password');
         $data = [
             'name' => $this->request->getPost('name'),
             'email' => $this->request->getPost('email'),
-            'password' => $this->request->getPost('password'),
+            'password' => $plainPassword,
             'role' => 'student', // Default role
             'is_active' => true
         ];
+        
+        // Create user in Moodle if integration is enabled
+        if ($this->moodleAuth->isEnabled()) {
+            try {
+                $moodleId = $this->moodleAuth->createMoodleUser([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => $plainPassword // Pass plain password for Moodle
+                ]);
+                
+                if ($moodleId) {
+                    $data['moodle_id'] = $moodleId;
+                    $data['last_moodle_sync'] = date('Y-m-d H:i:s');
+                    
+                    // Generate username for Moodle
+                    $username = strtolower(str_replace(' ', '', $data['name']));
+                    $data['moodle_username'] = $username;
+                }
+            } catch (\Exception $e) {
+                // Log error but don't fail registration if Moodle is down
+                log_message('error', 'Failed to create Moodle user during registration: ' . $e->getMessage());
+            }
+        }
         
         $userId = $this->userModel->insert($data);
         
@@ -63,7 +90,7 @@ class RegisterController extends BaseController
                 ->with('error', 'Failed to create account. Please try again.');
         }
         
-        // Optionally, auto-login after registration
+        // Auto-login after registration
         $user = $this->userModel->find($userId);
         $this->setUserSession($user);
         

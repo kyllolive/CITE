@@ -23,8 +23,8 @@ open http://localhost:8080
 
 **Service URLs:**
 - App: http://localhost:8080
-- Moodle: http://localhost:8081
-- phpMyAdmin: http://localhost:8082
+- Moodle: http://localhost:8081 (admin/Admin@123)
+- phpMyAdmin: http://localhost:8082 (root/root_password)
 
 **Test Credentials:**
 - Admin: `admin@cite.local` / `Admin@123`
@@ -106,6 +106,20 @@ docker-compose exec ci4-app php spark make:seeder SeederName
 docker-compose exec ci4-app php spark make:filter FilterName
 ```
 
+### Moodle Integration
+```bash
+# Sync users and courses with Moodle
+docker-compose exec ci4-app php spark moodle:sync           # Sync all
+docker-compose exec ci4-app php spark moodle:sync --users   # Users only
+docker-compose exec ci4-app php spark moodle:sync --courses # Courses only
+docker-compose exec ci4-app php spark moodle:sync --force   # Force sync
+
+# Enable Moodle integration
+# 1. Set MOODLE_SYNC_ENABLED=true in .env
+# 2. Configure MOODLE_URL and MOODLE_TOKEN
+# 3. Restart container: docker-compose restart ci4-app
+```
+
 ### Testing & Quality
 ```bash
 # Run tests
@@ -149,7 +163,31 @@ database.default.password = ci4_password
 # Moodle Integration
 MOODLE_URL = http://moodle:8081
 MOODLE_TOKEN = your_token_here
+MOODLE_SYNC_ENABLED = false
 ```
+
+## 🎓 Moodle Integration Features
+
+### Authentication
+- **Single Sign-On** - Login with Moodle credentials
+- **User Sync** - Automatic user creation in both systems
+- **Token Management** - Secure session handling
+- **Graceful Fallback** - Works even if Moodle is down
+
+### Data Synchronization
+- **User Profiles** - Sync name, email, and roles
+- **Course Catalog** - Import courses from Moodle
+- **Enrollment Status** - Track student enrollments
+- **Progress Tracking** - Monitor completion rates
+
+### Integration Points
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Authentication | ✅ Ready | Login/register with Moodle |
+| User Sync | ✅ Ready | CLI command for bulk sync |
+| Course Import | ✅ Ready | Import Moodle courses |
+| Grade Sync | 🔄 Planned | Two-way grade synchronization |
+| Content Embed | 🔄 Planned | Embed Moodle activities |
 
 ## 🏗️ Architecture Principles
 
@@ -197,6 +235,3 @@ docker-compose up -d
 Built on CodeIgniter 4 (MIT License)
 
 
-- Admin: admin@cite.local / Admin@123
-- Instructor: instructor@cite.local / Instructor@123
-- Student: student@cite.local / Student@123
