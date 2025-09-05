@@ -22,11 +22,13 @@ open http://localhost:8080
 ```
 
 **Service URLs:**
+
 - App: http://localhost:8080
 - Moodle: http://localhost:8081 (admin/Admin@123)
 - phpMyAdmin: http://localhost:8082 (root/root_password)
 
 **Test Credentials:**
+
 - Admin: `admin@cite.local` / `Admin@123`
 - Instructor: `instructor@cite.local` / `Instructor@123`
 - Student: `student@cite.local` / `Student@123`
@@ -56,6 +58,10 @@ docker-compose ps
 
 # 3. Watch logs (optional)
 docker-compose logs -f ci4-app
+
+# 4. Clean up container
+
+docker-compose down --volumes --rmi all
 ```
 
 ### Making Changes
@@ -75,6 +81,7 @@ docker-compose down
 ## 🔧 Important Commands
 
 ### Docker Management
+
 ```bash
 docker-compose up -d              # Start all services
 docker-compose down               # Stop all services
@@ -85,6 +92,7 @@ docker-compose restart ci4-app    # Restart service
 ```
 
 ### Database
+
 ```bash
 # Migrations
 docker-compose exec ci4-app php spark migrate
@@ -97,6 +105,7 @@ docker-compose exec ci4-app php spark db:seed CourseSeeder
 ```
 
 ### Code Generation
+
 ```bash
 # Create new components
 docker-compose exec ci4-app php spark make:controller ControllerName
@@ -107,6 +116,7 @@ docker-compose exec ci4-app php spark make:filter FilterName
 ```
 
 ### Moodle Integration
+
 ```bash
 # Sync users and courses with Moodle
 docker-compose exec ci4-app php spark moodle:sync           # Sync all
@@ -121,6 +131,7 @@ docker-compose exec ci4-app php spark moodle:sync --force   # Force sync
 ```
 
 ### Testing & Quality
+
 ```bash
 # Run tests
 docker-compose exec ci4-app ./vendor/bin/phpunit
@@ -132,6 +143,7 @@ docker-compose exec ci4-app ./vendor/bin/php-cs-fixer fix --dry-run
 ```
 
 ### Debugging
+
 ```bash
 # View logs
 docker-compose logs mysql         # MySQL logs
@@ -169,25 +181,28 @@ MOODLE_SYNC_ENABLED = false
 ## 🎓 Moodle Integration Features
 
 ### Authentication
+
 - **Single Sign-On** - Login with Moodle credentials
 - **User Sync** - Automatic user creation in both systems
 - **Token Management** - Secure session handling
 - **Graceful Fallback** - Works even if Moodle is down
 
 ### Data Synchronization
+
 - **User Profiles** - Sync name, email, and roles
 - **Course Catalog** - Import courses from Moodle
 - **Enrollment Status** - Track student enrollments
 - **Progress Tracking** - Monitor completion rates
 
 ### Integration Points
-| Feature | Status | Description |
-|---------|--------|-------------|
-| Authentication | ✅ Ready | Login/register with Moodle |
-| User Sync | ✅ Ready | CLI command for bulk sync |
-| Course Import | ✅ Ready | Import Moodle courses |
-| Grade Sync | 🔄 Planned | Two-way grade synchronization |
-| Content Embed | 🔄 Planned | Embed Moodle activities |
+
+| Feature        | Status     | Description                   |
+| -------------- | ---------- | ----------------------------- |
+| Authentication | ✅ Ready   | Login/register with Moodle    |
+| User Sync      | ✅ Ready   | CLI command for bulk sync     |
+| Course Import  | ✅ Ready   | Import Moodle courses         |
+| Grade Sync     | 🔄 Planned | Two-way grade synchronization |
+| Content Embed  | 🔄 Planned | Embed Moodle activities       |
 
 ## 🏗️ Architecture Principles
 
@@ -198,12 +213,12 @@ MOODLE_SYNC_ENABLED = false
 
 ### When to Scale
 
-| Component | Red Flag | Solution |
-|-----------|----------|----------|
-| Controllers | > 100 lines/method | Extract to Libraries |
-| Models | > 300 lines | Create service classes |
-| Duplicate code | 3+ places | Create helpers |
-| API endpoints | 10+ endpoints | Version your API |
+| Component      | Red Flag           | Solution               |
+| -------------- | ------------------ | ---------------------- |
+| Controllers    | > 100 lines/method | Extract to Libraries   |
+| Models         | > 300 lines        | Create service classes |
+| Duplicate code | 3+ places          | Create helpers         |
+| API endpoints  | 10+ endpoints      | Version your API       |
 
 ## 🛠️ Troubleshooting
 
@@ -233,5 +248,3 @@ docker-compose up -d
 ## 📝 License
 
 Built on CodeIgniter 4 (MIT License)
-
-
