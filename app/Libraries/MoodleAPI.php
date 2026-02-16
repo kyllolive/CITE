@@ -168,11 +168,14 @@ class MoodleAPI
         ]);
     }
 
+    //Sample change
+
     /**
      * Get all courses
      */
     public function getCourses(): array
     {
+        print_r('getCourses');
         return $this->call('core_course_get_courses');
     }
 
